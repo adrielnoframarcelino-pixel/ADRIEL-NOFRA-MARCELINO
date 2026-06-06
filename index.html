@@ -1,189 +1,177 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Factory & Construct - Studio Bintang Jatuh | ADRIEL NOFRA MARCELINO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factory & Construct - ADRIEL NOFRA MARCELINO</title>
 
-  <!-- Font Modern & Elegan -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Keren -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background: radial-gradient(circle at 10% 20%, #0a0f1e, #03050b);
-      font-family: 'Inter', sans-serif;
-      color: #eef5ff;
-      overflow-x: hidden;
+      margin: 0;
+      background-color: #3b2a1f;
+      font-family: 'Cairo', sans-serif;
+      color: #f5deb3;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* --- LANGIT BINTANG JATUH (Canvas sebagai background dinamis) --- */
-    #starCanvas {
+    /* --- EFEK KULIT SAPI (COW PRINT) BACKGROUND --- */
+    body::before {
+      content: '';
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: block;
-      z-index: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, #1a0f0a 15%, transparent 15%),
+        radial-gradient(circle at 70% 60%, #2c1a10 20%, transparent 20%),
+        radial-gradient(circle at 85% 15%, #1a0f0a 12%, transparent 12%),
+        radial-gradient(circle at 40% 80%, #2c1a10 18%, transparent 18%),
+        radial-gradient(circle at 55% 45%, #1a0f0a 10%, transparent 10%);
+      background-size: 120px 120px, 150px 150px, 100px 100px, 140px 140px, 110px 110px;
+      background-position: 0 0, 30px 40px, 60px 20px, 20px 70px, 80px 50px;
+      opacity: 0.2;
+      z-index: -2;
       pointer-events: none;
     }
 
-    /* semua konten di atas canvas */
-    .content-wrapper {
-      position: relative;
-      z-index: 2;
+    /* Gradasi Tanduk & Rumput */
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to top, #2e5c1e, transparent);
+      z-index: -1;
+      pointer-events: none;
     }
 
-    /* Header dengan efek kaca & tema kosmik */
     header {
-      background: rgba(15, 25, 45, 0.75);
-      backdrop-filter: blur(12px);
-      padding: 28px 20px;
+      background: #5c3a1e;
+      padding: 25px;
       text-align: center;
-      border-bottom: 2px solid rgba(210, 180, 140, 0.5);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      border-bottom: 6px solid #d4a017;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
       position: relative;
+    }
+
+    header::before {
+      content: "🐃";
+      font-size: 50px;
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      opacity: 0.5;
+    }
+
+    header::after {
+      content: "🐏";
+      font-size: 50px;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      opacity: 0.5;
     }
 
     header h1 {
-      font-size: 2.2rem;
-      letter-spacing: -0.5px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #F9F3C1, #FFE5B4, #B8E1FC);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 8px rgba(255,215,0,0.3);
-    }
-
-    header h1::before {
-      content: "✨ ";
-      font-size: 2rem;
-      background: none;
-      -webkit-background-clip: unset;
-      color: #ffecb3;
-    }
-
-    header h1::after {
-      content: " 🌠";
-      font-size: 2rem;
-      background: none;
-      -webkit-background-clip: unset;
-      color: #ffecb3;
+      font-size: 28px;
+      letter-spacing: 3px;
+      margin: 0;
+      text-shadow: 3px 3px 0 #2a1a0a;
+      color: #ffcc66;
     }
 
     header p {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #cdddf7;
-      letter-spacing: 1px;
-      margin-top: 8px;
-    }
-
-    .nim-badge {
-      background: rgba(0,0,0,0.5);
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      backdrop-filter: blur(4px);
-      margin-top: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #f5deb3;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 40px auto;
       padding: 20px;
     }
 
-    /* Kartu elegan dengan efek bercahaya */
     .card {
-      background: rgba(18, 25, 45, 0.65);
-      backdrop-filter: blur(8px);
-      border-radius: 32px;
+      background: #2e241a;
+      padding: 20px;
       margin-bottom: 40px;
-      padding: 24px 28px;
-      border: 1px solid rgba(255, 220, 150, 0.25);
-      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,245,200,0.1);
-      transition: all 0.3s ease;
+      border: 4px solid #b97f2e;
+      border-radius: 20px 5px 20px 5px;
+      box-shadow: 10px 10px 0px #7a4a1a;
+      transition: transform 0.2s;
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 210, 90, 0.6);
-      box-shadow: 0 30px 45px -12px black;
+      transform: translate(-2px, -2px);
+      box-shadow: 12px 12px 0px #5c3a1e;
     }
 
     h2 {
-      font-size: 1.7rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-      background: linear-gradient(120deg, #FFE6B0, #B2D8FF);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
-      border-left: 5px solid #FFD966;
-      padding-left: 18px;
+      font-size: 22px;
+      color: #ffcc66;
+      margin-bottom: 20px;
+      border-left: 8px solid #d4a017;
+      padding-left: 15px;
     }
 
-    p {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #e2ecff;
-      margin-bottom: 20px;
+    p, li {
+      font-size: 15px;
+      line-height: 1.8;
     }
 
     pre {
-      background: #0a0f1c;
-      padding: 18px;
-      border-radius: 20px;
-      overflow-x: auto;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: #1e1610;
+      color: #c9e2a3;
+      padding: 15px;
       font-size: 13px;
-      color: #d6e6ff;
-      border: 1px solid #2a3855;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-      margin-bottom: 15px;
+      overflow-x: auto;
+      border-left: 5px solid #d4a017;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
     }
 
     .run-btn-container {
       text-align: center;
-      margin-top: 12px;
+      margin-top: 15px;
     }
 
     .run-btn {
-      background: linear-gradient(95deg, #2a2f4b, #1a1f35);
-      border: none;
-      padding: 12px 32px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #FFEFC0;
-      border-radius: 60px;
+      background-color: #5c3a1e;
+      color: #ffdd99;
+      border: 3px solid #d4a017;
+      padding: 12px 25px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: 0.2s;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 200, 100, 0.5);
+      box-shadow: 5px 5px 0px #2a1a0a;
+      display: inline-block;
+      transition: transform 0.1s, box-shadow 0.1s;
+      border-radius: 40px;
     }
 
     .run-btn:hover {
-      background: linear-gradient(95deg, #3e456b, #282e4a);
-      transform: scale(0.97);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      color: #fff3dd;
-      border-color: #ffcd7e;
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0px #2a1a0a;
+      background-color: #7a4a1a;
     }
 
-    /* Modal dengan gaya kosmik */
+    .run-btn:active {
+      transform: translate(5px, 5px);
+      box-shadow: 0px 0px 0px #2a1a0a;
+    }
+
+    /* MODAL POPUP STYLE - Gaya Qurban */
     .modal {
       display: none;
       position: fixed;
@@ -192,8 +180,8 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(5px);
     }
 
     .modal-content {
@@ -202,12 +190,12 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 90%;
-      height: 85%;
-      background: #0b1120;
-      border-radius: 36px;
-      border: 2px solid #ffdd99;
+      height: 80%;
+      background: #2e241a;
+      border: 5px solid #d4a017;
+      border-radius: 30px 10px 30px 10px;
       overflow: hidden;
-      box-shadow: 0 0 70px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 60px rgba(212, 160, 23, 0.5);
     }
 
     .modal-content iframe {
@@ -219,289 +207,876 @@
     .close-modal {
       position: absolute;
       right: 20px;
-      top: 15px;
-      font-size: 44px;
-      font-weight: 300;
-      color: #ffdfaa;
+      top: 10px;
+      font-size: 45px;
+      color: #d4a017;
       cursor: pointer;
-      z-index: 1002;
-      transition: 0.2s;
-      background: rgba(0,0,0,0.4);
-      width: 48px;
+      z-index: 1001;
+      font-weight: bold;
+      background: rgba(0,0,0,0.5);
+      width: 50px;
       text-align: center;
       border-radius: 50%;
-      line-height: 1;
     }
 
     .close-modal:hover {
-      color: white;
-      transform: rotate(90deg);
+      color: #ffaa33;
+      transform: scale(1.1);
     }
 
     footer {
-      background: rgba(5, 8, 18, 0.8);
-      backdrop-filter: blur(8px);
+      background: #5c3a1e;
       text-align: center;
       padding: 20px;
-      font-size: 0.8rem;
-      border-top: 1px solid #ffdd9944;
+      font-size: 14px;
+      border-top: 6px solid #d4a017;
       margin-top: 40px;
-      color: #b9ceff;
     }
 
-    /* Animasi bintang kecil di text */
-    @keyframes twinkle {
-      0% { opacity: 0.6; text-shadow: 0 0 0px gold;}
-      100% { opacity: 1; text-shadow: 0 0 5px #ffdd77;}
-    }
-    
-    strong, .nim-badge {
-      color: #FFE3A4;
+    /* Simbol Sapi */
+    h2::before {
+      content: "🐃 ";
+      font-size: 1.2em;
     }
 
-    /* responsive */
-    @media (max-width: 700px) {
-      .card {
-        padding: 16px;
-      }
-      h2 {
-        font-size: 1.4rem;
-      }
+    strong {
+      color: #ffcc66;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Canvas Bintang Jatuh + Meteor -->
-  <canvas id="starCanvas"></canvas>
+  <header>
+    <h1>🏭 FACTORY & CONSTRUCT 🏗️</h1>
+    <p>ADRIEL NOFRA MARCELINO | NIM: 251410017 | Kelas: SI2A</p>
+    <p style="font-size: 12px; margin-top: 5px;">🐄 🐏 🐪 - Pemrograman Berorientasi - 🐃</p>
+  </header>
 
-  <div class="content-wrapper">
-    <header>
-      <h1>FACTORY & CONSTRUCT</h1>
-      <p>✦ Konsep Factory Constructor di Dart – Dikemas dengan Nuansa Bintang Jatuh ✦</p>
-      <div class="nim-badge">🌠 ADRIEL NOFRA MARCELINO | NIM: 251410017 | Kelas: SI2A 🌠</div>
-    </header>
+  <div class="container">
 
-    <div class="container">
-      
-      <!-- 1. Factory Constructor (Generative) -->
-      <div class="card">
-        <h2>1. Factory Constructor (Dasar)</h2>
-        <p>Factory constructor tidak selalu membuat instance baru. Bisa mengembalikan dari cache, subclass, atau logika khusus. Seperti bintang jatuh yang bisa lahir dari debu kosmik yang sama.</p>
-        <pre><code>// ========== ADRIEL NOFRA MARCELINO ==========
-// NIM: 251410017
+    <!-- 1. Builder Pattern -->
+    <div class="card">
+      <h2>1. Factory constructor</h2>
+      <p>
+       Factory constructor adalah constructor khusus yang tidak selalu membuat instance baru dari kelasnya. Ia bisa:
+        Mengembalikan instance dari cache (objek yang sudah ada sebelumnya)
+        Mengembalikan instance dari subclass (jenis turunan)
+        Melakukan logika kompleks sebelum membuat objek
+        Berbeda dengan constructor biasa yang selalu membuat objek baru, factory memberi fleksibilitas dalam pengembalian objek.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+// Tema  : Factory & Construct - Qurban Style
+// ==========================================
+
 class MyClass {
+
+  // Generative constructor
   MyClass();
-  factory MyClass.create() => MyClass();
+
+  // Factory constructor
+  factory MyClass.create() {
+    return MyClass();
+  }
 }
 
 void main() {
+
   var obj1 = MyClass();
   var obj2 = MyClass.create();
-  print('Objek 1 & 2 dibuat dari pabrik bintang ✨');
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=a0a728ab1ffd0964f9b1315aa3d6cecf&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
 
-      <!-- 2. Singleton Pattern -->
-      <div class="card">
-        <h2>2. Singleton Pattern</h2>
-        <p>Memastikan hanya satu instance sepanjang siklus, seperti rasi bintang yang hanya satu di langit malam.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+  print('Objek 1 berhasil dibuat');
+  print('Objek 2 berhasil dibuat');
+} 
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=a0a728ab1ffd0964f9b1315aa3d6cecf&theme=dark')">🐃 JALANKAN KODE QURBAN</button>
+      </div>
+    </div>
+
+    <!-- 2. Masalah Tanpa Extension Methods -->
+    <div class="card">
+      <h2>2.  Singleton Pattern </h2>
+      <p>
+        Singleton adalah pattern desain kreational (creational pattern)
+        yang memastikan sebuah kelas hanya memiliki satu instance selama program berjalan, 
+        serta menyediakan akses global ke instance tersebut.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
 class DatabaseConnection {
-  DatabaseConnection._internal();
-  static final DatabaseConnection _instance = DatabaseConnection._internal();
-  factory DatabaseConnection() => _instance;
-  void connect() => print('Connected to cosmic DB');
+
+  DatabaseConnection._internal() {
+    print('Creating database connection...');
+  }
+
+  static final DatabaseConnection _instance =
+      DatabaseConnection._internal();
+
+  factory DatabaseConnection() {
+    return _instance;
+  }
+
+  void connect() {
+    print('Connected to database');
+  }
 }
+
 void main() {
+
   var db1 = DatabaseConnection();
   var db2 = DatabaseConnection();
-  print(identical(db1, db2)); // true
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=52ef599bbaf980430ea5e509cd1255da&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
 
-      <!-- 3. Object Pool Pattern (Cache) -->
-      <div class="card">
-        <h2>3. Object Pool (Cache Connection)</h2>
-        <p>Mengelola koneksi reusable seperti meteor yang kembali ke sabuk asteroid untuk dipakai lagi.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-class ConnectionPool {
-  static final _cache = {};
-  final String host; final int port;
-  ConnectionPool._(this.host, this.port);
-  factory ConnectionPool(String host, int port) {
-    String key = '$host:$port';
-    if (_cache.containsKey(key)) return _cache[key];
-    var conn = ConnectionPool._(host, port);
-    _cache[key] = conn;
-    return conn;
-  }
+  print(identical(db1, db2));
+
+  db1.connect();
+  db2.connect();
 }
-void main() {
-  var a = ConnectionPool('localhost', 5432);
-  var b = ConnectionPool('localhost', 5432);
-  print(identical(a, b)); // true
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=5ec35dac36d2ffd63ce2d5c5a9b0856a&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=52ef599bbaf980430ea5e509cd1255da&theme=dark')">🐏 JALANKAN KODE</button>
       </div>
-
-      <!-- 4. Mengembalikan Subclass -->
-      <div class="card">
-        <h2>4. Factory Mengembalikan Subclass</h2>
-        <p>Factory bisa mengembalikan berbagai turunan sesuai parameter, seperti rasi bintang berbeda tergantung musim.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-abstract class Shape { void draw(); }
-class Circle implements Shape { void draw() => print('🌟 Lingkaran Bintang'); }
-class Square implements Shape { void draw() => print('⬛ Kotak Meteor'); }
-factory Shape(String type) {
-  if(type=='circle') return Circle();
-  return Square();
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=9cd373f901b69fcdf86b755d331df801&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 5. Factory untuk Configuration -->
-      <div class="card">
-        <h2>5. Factory Konfigurasi (Env)</h2>
-        <p>Membuat konfigurasi berdasarkan environment — seperti menyesuaikan kecerahan bintang dengan latar langit.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-class AppConfig {
-  factory AppConfig.fromEnvironment(String env) {
-    if(env == 'dev') return AppConfig._dev();
-    return AppConfig._prod();
-  }
-  AppConfig._dev();
-  AppConfig._prod();
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=92286b04992c4b54d7cf5e836771247c&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 6. Named Constructors Factory -->
-      <div class="card">
-        <h2>6. Factory dengan Named Constructor</h2>
-        <p>Multiple factory dengan nama deskriptif — seperti memberi nama pada setiap bintang terang.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-class User {
-  User._(this.name);
-  final String name;
-  factory User.guest() => User._('Guest Star');
-  factory User.normal(String name) => User._(name);
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=62cd9f53a3d0d741816caf3713acda56&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 7. Factory dengan Generic -->
-      <div class="card">
-        <h2>7. Factory Generic (Response)</h2>
-        <p>Pola factory yang type-safe untuk berbagai tipe data, seperti debu kosmik yang bisa membentuk berbagai objek langit.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-abstract class Response&lt;T&gt; {
-  factory Response.success(T data) = SuccessResponse&lt;T&gt;;
-  factory Response.error(String err) = ErrorResponse;
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=37b20f0bf3be6d32f912ba87b29fcb9a&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 8. Payment Method (Variasi) -->
-      <div class="card">
-        <h2>8. Factory Metode Pembayaran</h2>
-        <p>Memproduksi berbagai payment method — fleksibel seperti berbagai jalur cahaya bintang.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-abstract class Payment { void pay(double amount); }
-factory Payment(String type) {
-  if(type == 'card') return CardPayment();
-  return PayPalPayment();
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=aa253cae8924236f6f27a0b3f9521d67&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 9. Immutable + Cache Color -->
-      <div class="card">
-        <h2>9. Immutable Objects dengan Cache</h2>
-        <p>Objek warna yang tidak berubah dan di-cache, hemat memori layaknya konservasi energi di jagat raya.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-class Color {
-  static final _cache = {};
-  final int r,g,b;
-  Color._(this.r,this.g,this.b);
-  factory Color.rgb(int r,int g,int b) => _cache.putIfAbsent('$r,$g,$b', () => Color._(r,g,b));
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=776a71f02cf1896d84d05a0d0657ef59&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 10. Challenge AnimalFactory -->
-      <div class="card">
-        <h2>10. Challenge: AnimalFactory 🐾</h2>
-        <p>Factory dengan cache untuk hewan (Cat, Dog, Bird) — seperti konstelasi hewan di angkasa.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-abstract class Animal {
-  factory Animal.create(String type, String name) = _AnimalFactory;
-  void sound();
-}
-class Cat implements Animal { void sound() => print('🐱 Meow~ bintang jatuh'); }</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=6e10c1f6f0c6e2ff0b0aad313d59f9ef&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 11. Bonus Latihan Shape-->
-      <div class="card">
-        <h2>11. Latihan ShapeFactory</h2>
-        <p>Bangun objek shape dengan mudah menggunakan factory — bentuk geometris antar bintang.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-factory Shape(String type) {
-  switch(type) {
-    case 'star': return StarShape();
-    default: return CircleShape();
-  }
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=30c75039d817338e057a3e770de3146d&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
-      <!-- 12. Static Method vs Factory -->
-      <div class="card">
-        <h2>12. Factory vs Static Method</h2>
-        <p>Perbedaan mendasar: factory constructor bisa digunakan dalam pewarisan, static method lebih ke utility.</p>
-        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
-class Example {
-  factory Example.create() => Example._();
-  static Example.createStatic() => Example._();
-  Example._();
-}</code></pre>
-        <div class="run-btn-container">
-          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=36d9ba0d6bba2eda69883ec8b37c4e45&theme=dark')">🌠 JALANKAN KODE</button>
-        </div>
-      </div>
-
     </div>
-    <footer>
-      ✨ ADRIEL NOFRA MARCELINO (251410017) – Factory & Construct: Bintang Jatuh Edition ✨ <br/>
-      💫 Setiap factory constructor adalah jejak cahaya yang unik di langit pemrograman 💫
-    </footer>
+
+    <!-- 3. Object Pool Pattern -->
+    <div class="card">
+      <h2>3.Object Pool Pattern</h2>
+      <p>
+        Object Pool adalah pattern desain kreational yang menyimpan kumpulan objek siap pakai (pool) untuk digunakan kembali
+          daripada membuat dan menghancurkan objek berulang-ulang.
+          Tujuannya untuk mengoptimalkan performa dan menghemat resource ketika membuat objek itu "mahal" (heavyweight).
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+class ConnectionPool {
+  final String host;
+  final int port;
+
+  static final Map _cache = {};
+
+  ConnectionPool._(this.host, this.port);
+
+  factory ConnectionPool(String host, int port) {
+    var key = '$host:$port';
+
+    if (_cache.containsKey(key)) {
+      print('Returning cached connection for $key');
+      return _cache[key]!;
+    }
+
+    print('Creating new connection for $key');
+    var connection = ConnectionPool._(host, port);
+    _cache[key] = connection;
+
+    return connection;
+  }
+
+  void query(String sql) {
+    print('Executing: $sql on $host:$port');
+  }
+}
+
+void main() {
+  var conn1 = ConnectionPool('localhost', 5432);
+  conn1.query('SELECT * FROM users');
+
+  print('');
+
+  var conn2 = ConnectionPool('localhost', 5432);
+  conn2.query('INSERT INTO products VALUES ("Laptop")');
+
+  print('');
+
+  var conn3 = ConnectionPool('db.example.com', 3306);
+  conn3.query('UPDATE orders SET status="Shipped"');
+
+  print('');
+  print('conn1 dan conn2 sama? ${identical(conn1, conn2)}');
+  print('conn1 dan conn3 sama? ${identical(conn1, conn3)}');
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=5ec35dac36d2ffd63ce2d5c5a9b0856a&theme=dark')">🐪 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 4. Mengembalikan Subclass-->
+    <div class="card">
+      <h2>4. Mengembalikan Subclass</h2>
+      <p>
+        Extension Methods bisa memiliki method, getter, setter, bahkan operator.
+        Seperti tata cara pemotongan hewan qurban yang memiliki aturan jelas.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+abstract class Shape {
+  void draw();
+
+  factory Shape(String type) {
+    switch (type) {
+      case 'circle':
+        return Circle();
+      case 'square':
+        return Square();
+      case 'triangle':
+        return Triangle();
+      case 'rectangle':
+        return Rectangle();
+      default:
+        return Circle();
+    }
+  }
+}
+
+class Circle implements Shape {
+  @override
+  void draw() => print('Drawing circle');
+}
+
+class Square implements Shape {
+  @override
+  void draw() => print('Drawing square');
+}
+
+class Triangle implements Shape {
+  @override
+  void draw() => print('Drawing triangle');
+}
+
+class Rectangle implements Shape {
+  @override
+  void draw() => print('Drawing rectangle');
+}
+
+void main() {
+  var circle = Shape('circle');
+  var square = Shape('square');
+  var triangle = Shape('triangle');
+  var rectangle = Shape('rectangle');
+
+  circle.draw();
+  square.draw();
+  triangle.draw();
+  rectangle.draw();
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=9cd373f901b69fcdf86b755d331df801&theme=dark')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 6. Factory untuk Configuration -->
+    <div class="card">
+      <h2>5. Factory untuk Configuration</h2>
+      <p>
+    Factory untuk Configuration adalah pola desain yang menggunakan factory pattern untuk membuat, memuat, dan mengelola objek konfigurasi aplikasi. Ini memungkinkan aplikasi untuk
+          
+Memuat konfigurasi dari berbagai sumber (file, environment, database, API)
+Mengembalikan format konfigurasi yang berbeda (JSON, YAML, XML, properties)
+Menerapkan environment-specific coniguration (development, staging, production)
+Caching dan singleton untuk performa
+
+
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+class AppConfig {
+  final String environment;
+  final String apiUrl;
+  final bool debugMode;
+
+  AppConfig._development()
+      : environment = 'development',
+        apiUrl = 'http://localhost:3000',
+        debugMode = true;
+
+  AppConfig._production()
+      : environment = 'production',
+        apiUrl = 'https://api.example.com',
+        debugMode = false;
+
+  AppConfig._staging()
+      : environment = 'staging',
+        apiUrl = 'https://staging.example.com',
+        debugMode = true;
+
+  factory AppConfig.fromEnvironment(String env) {
+    switch (env.toLowerCase()) {
+      case 'dev':
+        return AppConfig._development();
+      case 'prod':
+        return AppConfig._production();
+      case 'stage':
+        return AppConfig._staging();
+      default:
+        return AppConfig._development();
+    }
+  }
+
+  void printConfig() {
+    print('Environment : $environment');
+    print('API URL     : $apiUrl');
+    print('Debug Mode  : $debugMode');
+    print('------------------------');
+  }
+}
+
+void main() {
+  var dev = AppConfig.fromEnvironment('dev');
+  var prod = AppConfig.fromEnvironment('prod');
+  var stage = AppConfig.fromEnvironment('stage');
+
+  dev.printConfig();
+  prod.printConfig();
+  stage.printConfig();
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=92286b04992c4b54d7cf5e836771247c&theme=dark')">🐏 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 7.Factory dengan Named Constructors -->
+    <div class="card">
+      <h2>6. Factory dengan Named Constructors</h2>
+      <p>
+        Factory dengan Named Constructors adalah teknik di mana sebuah kelas memiliki multiple
+          factory constructors dengan nama yang berbeda,
+          masing-masing bertanggung jawab untuk membuat objek dengan cara atau dari sumber yang berbeda.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+class User {
+  final String id;
+  final String name;
+  final String email;
+
+  User._({
+    required this.id,
+    required this.name,
+    required this.email,
+  });
+
+  factory User.fromJson(Map json) {
+    return User._(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+    );
+  }
+
+  factory User.guest() {
+    return User._(
+      id: '0',
+      name: 'Guest',
+      email: 'guest@example.com',
+    );
+  }
+
+  factory User.create(String name, String email) {
+    return User._(
+      id: '001',
+      name: name,
+      email: email,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'User(id: $id, name: $name, email: $email)';
+  }
+}
+
+void main() {
+  var user = User.fromJson({
+    'id': '123',
+    'name': 'Alice',
+    'email': 'alice@example.com'
+  });
+
+  var guest = User.guest();
+
+  var newUser = User.create(
+    'Bob',
+    'bob@example.com',
+  );
+
+  print(user);
+  print(guest);
+  print(newUser);
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=62cd9f53a3d0d741816caf3713acda56&theme=dark')">🐪 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 8. Factory dengan Generic -->
+    <div class="card">
+      <h2>7. Factory dengan Generic</h2>
+      <p>
+    Factory dengan Generic adalah pola desain di mana
+    factory class atau method menggunakan type parameters (generics) untuk dapat membuat
+    dan mengembalikan objek dari berbagai tipe secara type-safe tanpa kehilangan informasi tipe.
+Ini memungkinkan:
+Type safety - Compiler memastikan tipe yang benar
+Code reuse - Satu factory untuk banyak tipe
+Flexibility - Mendukung berbagai tipe tanpa casting
+Compile-time checking - Error terdeteksi saat kompilasi
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+abstract class Response {
+  final T? data;
+  final String? error;
+
+  Response({this.data, this.error});
+
+  // Factory untuk success
+  factory Response.success(T data) = SuccessResponse;
+
+  // Factory untuk error
+  factory Response.error(String error) = ErrorResponse;
+}
+
+class SuccessResponse extends Response {
+  SuccessResponse(T data) : super(data: data);
+}
+
+class ErrorResponse extends Response {
+  ErrorResponse(String error) : super(error: error);
+}
+
+void main() {
+  Response success =
+      Response.success('Data berhasil dimuat');
+
+  Response error =
+      Response.error('Gagal memuat data');
+
+  print('Success Data : ${success.data}');
+  print('Error Message : ${error.error}');
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=37b20f0bf3be6d32f912ba87b29fcb9a&theme=dark')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 9. Factory dengan Generic -->
+    <div class="card">
+      <h2>8. Factory dengan Generic</h2>
+      <p>
+        Factory untuk Payment Methods adalah pola
+          desain yang digunakan untuk membuat objek pembayaran (credit card, PayPal, crypto, dll) secara terpusat, memungkinkan sistem untuk mendukung berbagai metode
+        pembayaran dengan cara yang konsisten dan mudah ditambahkan metode baru.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+abstract class PaymentMethod {
+  void pay(double amount);
+
+  factory PaymentMethod(String type) {
+    switch (type.toLowerCase()) {
+      case 'creditcard':
+        return CreditCardPayment();
+
+      case 'paypal':
+        return PayPalPayment();
+
+      case 'banktransfer':
+        return BankTransferPayment();
+
+      case 'ewallet':
+        return EWalletPayment();
+
+      default:
+        throw ArgumentError(
+            'Unknown payment method: $type');
+    }
+  }
+}
+
+class CreditCardPayment implements PaymentMethod {
+  @override
+  void pay(double amount) {
+    print('Paying $amount with Credit Card');
+  }
+}
+
+class PayPalPayment implements PaymentMethod {
+  @override
+  void pay(double amount) {
+    print('Paying $amount with PayPal');
+  }
+}
+
+class BankTransferPayment implements PaymentMethod {
+  @override
+  void pay(double amount) {
+    print('Paying $amount with Bank Transfer');
+  }
+}
+
+class EWalletPayment implements PaymentMethod {
+  @override
+  void pay(double amount) {
+    print('Paying $amount with E-Wallet');
+  }
+}
+
+void main() {
+  var creditCard = PaymentMethod('creditcard');
+  var paypal = PaymentMethod('paypal');
+  var bankTransfer = PaymentMethod('banktransfer');
+  var ewallet = PaymentMethod('ewallet');
+
+  creditCard.pay(100000);
+  paypal.pay(50000);
+  bankTransfer.pay(250000);
+  ewallet.pay(75000);
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=aa253cae8924236f6f27a0b3f9521d67&theme=dark')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 10.Factory vs Static Method-->
+    <div class="card">
+      <h2>9.Factory vs Static Method</h2> 
+      <p>
+        Factory untuk Payment Methods adalah pola
+          desain yang digunakan untuk membuat objek pembayaran (credit card, PayPal, crypto, dll) secara terpusat, memungkinkan sistem untuk mendukung berbagai metode
+        pembayaran dengan cara yang konsisten dan mudah ditambahkan metode baru.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+
+class Example {
+  Example._();
+
+  // Factory Constructor
+  factory Example.create() => Example._();
+
+  // Static Method
+  static Example createStatic() => Example._();
+}
+
+void main() {
+  var e1 = Example.create();
+  var e2 = Example.createStatic();
+
+  print('e1 dibuat melalui konstruktor pabrik: $e1');
+  print('e2 dibuat melalui metode statis: $e2');
+
+  if (e1 != e2) {
+    print('e1 dan e2 adalah instansi yang berbeda, seperti yang diharapkan.');
+  }
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=36d9ba0d6bba2eda69883ec8b37c4e45&theme=dark')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+      
+
+    <!-- 11.Factory untuk Immutable Objects dengan Cache-->
+    <div class="card">
+      <h2>10.Factory untuk Immutable Objects dengan Cache</h2> 
+      <p>
+        Factory untuk Payment Methods adalah pola
+          desain yang digunakan untuk membuat objek pembayaran (credit card, PayPal, crypto, dll) secara terpusat, memungkinkan sistem untuk mendukung berbagai metode
+        pembayaran dengan cara yang konsisten dan mudah ditambahkan metode baru.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+class Color {
+  final int red;
+  final int green;
+  final int blue;
+
+  static final Map _cache = {};
+
+  Color._(this.red, this.green, this.blue);
+
+  factory Color.rgb(int red, int green, int blue) {
+    if (red < 0 ||
+        red > 255 ||
+        green < 0 ||
+        green > 255 ||
+        blue < 0 ||
+        blue > 255) {
+      throw ArgumentError('RGB values must be 0-255');
+    }
+
+    var key = '$red,$green,$blue';
+
+    if (!_cache.containsKey(key)) {
+      _cache[key] = Color._(red, green, blue);
+    }
+
+    return _cache[key]!;
+  }
+
+  factory Color.red() => Color.rgb(255, 0, 0);
+  factory Color.green() => Color.rgb(0, 255, 0);
+  factory Color.blue() => Color.rgb(0, 0, 255);
+  factory Color.white() => Color.rgb(255, 255, 255);
+  factory Color.black() => Color.rgb(0, 0, 0);
+
+  @override
+  String toString() => 'Color($red, $green, $blue)';
+}
+
+void main() {
+  var red1 = Color.red();
+  var red2 = Color.rgb(255, 0, 0);
+
+  print(red1);
+  print(red2);
+
+  print(red1 == red2);
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=776a71f02cf1896d84d05a0d0657ef59')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+
+    <!-- 12.Latihan – ConnectionFactory, NotificationFactory, dan ShapeFactory-->
+    <div class="card">
+      <h2>11.Latihan – ConnectionFactory, NotificationFactory, dan ShapeFactory</h2> 
+      <p>
+        Factory untuk Payment Methods adalah pola
+          desain yang digunakan untuk membuat objek pembayaran (credit card, PayPal, crypto, dll) secara terpusat, memungkinkan sistem untuk mendukung berbagai metode
+        pembayaran dengan cara yang konsisten dan mudah ditambahkan metode baru.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+class Color {
+  final int red;
+  final int green;
+  final int blue;
+
+  static final Map _cache = {};
+
+  Color._(this.red, this.green, this.blue);
+
+  factory Color.rgb(int red, int green, int blue) {
+    if (red < 0 ||
+        red > 255 ||
+        green < 0 ||
+        green > 255 ||
+        blue < 0 ||
+        blue > 255) {
+      throw ArgumentError('RGB values must be 0-255');
+    }
+
+    var key = '$red,$green,$blue';
+
+    if (!_cache.containsKey(key)) {
+      _cache[key] = Color._(red, green, blue);
+    }
+
+    return _cache[key]!;
+  }
+
+  factory Color.red() => Color.rgb(255, 0, 0);
+  factory Color.green() => Color.rgb(0, 255, 0);
+  factory Color.blue() => Color.rgb(0, 0, 255);
+  factory Color.white() => Color.rgb(255, 255, 255);
+  factory Color.black() => Color.rgb(0, 0, 0);
+
+  @override
+  String toString() => 'Color($red, $green, $blue)';
+}
+
+void main() {
+  var red1 = Color.red();
+  var red2 = Color.rgb(255, 0, 0);
+
+  print(red1);
+  print(red2);
+
+  print(red1 == red2);
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=30c75039d817338e057a3e770de3146d')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+
+          <!-- 13.Challenge – AnimalFactory-->
+    <div class="card">
+      <h2>12.Challenge – AnimalFactory</h2> 
+      <p>
+      Class Animal berperan sebagai class abstrak yang menjadi induk dari beberapa jenis hewan.
+Berdasarkan parameter yang diberikan, factory constructor akan membuat objek Cat, Dog, atau Bird.
+Program menerapkan cache sehingga objek hewan dengan atribut yang sama dapat digunakan kembali tanpa membuat objek baru.
+      </p>
+      <pre><code>
+// ==========================================
+// Nama  : ADRIEL NOFRA MARCELINO
+// NIM   : 251410017
+// ==========================================
+abstract class Animal {
+  final String name;
+
+  Animal(this.name);
+
+  void sound();
+
+  static final Map _cache = {};
+
+  factory Animal.create(
+    String type,
+    String name,
+  ) {
+    if (name.isEmpty) {
+      throw ArgumentError(
+          'Nama hewan tidak boleh kosong');
+    }
+
+    String key = '$type-$name';
+
+    if (_cache.containsKey(key)) {
+      return _cache[key]!;
+    }
+
+    Animal animal;
+
+    switch (type.toLowerCase()) {
+      case 'cat':
+        animal = Cat(name);
+        break;
+
+      case 'dog':
+        animal = Dog(name);
+        break;
+
+      case 'bird':
+        animal = Bird(name);
+        break;
+
+      default:
+        throw ArgumentError(
+            'Jenis hewan tidak dikenal');
+    }
+
+    _cache[key] = animal;
+
+    return animal;
+  }
+}
+
+class Cat extends Animal {
+  Cat(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name : Meow');
+  }
+}
+
+class Dog extends Animal {
+  Dog(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name : Woof');
+  }
+}
+
+class Bird extends Animal {
+  Bird(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name : Tweet');
+  }
+}
+
+void main() {
+  var cat1 = Animal.create(
+    'cat',
+    'Milo',
+  );
+
+  var dog1 = Animal.create(
+    'dog',
+    'Buddy',
+  );
+
+  var bird1 = Animal.create(
+    'bird',
+    'Rio',
+  );
+
+  var cat2 = Animal.create(
+    'cat',
+    'Milo',
+  );
+
+  cat1.sound();
+  dog1.sound();
+  bird1.sound();
+
+  print('Cache bekerja: ${cat1 == cat2}');
+}
+</code></pre>
+      <div class="run-btn-container">
+        <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=6e10c1f6f0c6e2ff0b0aad313d59f9ef')">🐃 JALANKAN KODE</button>
+      </div>
+    </div>
+   
+      
+      
+
+      
   </div>
 
+  <!-- MODAL POPUP -->
   <div id="codeModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -509,125 +1084,13 @@ class Example {
     </div>
   </div>
 
+  <footer>
+    🕌 ADRIEL NOFRA MARCELINO (251410017) - Factory & Construct | Konsep Qurban 🐃<br>
+    🌾 "Sapi, Kambing, Unta - Pemrograman Berkah" 🌾
+  </footer>
+
   <script>
-    // ======================== BINTANG JATUH + METEOR (Canvas Dinamis) =========================
-    const canvas = document.getElementById('starCanvas');
-    let ctx = canvas.getContext('2d');
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    
-    let stars = [];
-    let shootingStars = [];
-    const STAR_COUNT = 280;
-    
-    function resizeCanvas() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      initStars();
-    }
-    
-    function initStars() {
-      stars = [];
-      for(let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 2.2 + 0.8,
-          alpha: Math.random() * 0.6 + 0.3,
-          twinkleSpeed: 0.005 + Math.random() * 0.02,
-          phase: Math.random() * Math.PI * 2
-        });
-      }
-    }
-    
-    function createShootingStar() {
-      if (Math.random() < 0.007) {
-        const startX = Math.random() * width;
-        const startY = Math.random() * height * 0.2;
-        const angle = -Math.PI / 3 + (Math.random() * Math.PI / 3);
-        const speed = 6 + Math.random() * 9;
-        shootingStars.push({
-          x: startX,
-          y: startY,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          length: 12 + Math.random() * 15,
-          alpha: 0.9,
-          life: 1.0,
-          decay: 0.02 + Math.random() * 0.025
-        });
-      }
-    }
-    
-    function drawStars() {
-      for(let s of stars) {
-        let twinkle = Math.sin(Date.now() * s.twinkleSpeed + s.phase) * 0.25 + 0.75;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 240, 200, ${s.alpha * twinkle})`;
-        ctx.fill();
-      }
-    }
-    
-    function drawShootingStars() {
-      for(let i = 0; i < shootingStars.length; i++) {
-        const m = shootingStars[i];
-        ctx.beginPath();
-        ctx.moveTo(m.x, m.y);
-        ctx.lineTo(m.x - m.vx * 2.5, m.y - m.vy * 2.5);
-        ctx.lineWidth = 2.5;
-        ctx.strokeStyle = `rgba(255, 220, 150, ${m.alpha * m.life})`;
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(m.x, m.y);
-        ctx.lineTo(m.x - m.vx * 5, m.y - m.vy * 5);
-        ctx.lineWidth = 1.2;
-        ctx.strokeStyle = `rgba(255, 180, 80, ${m.alpha * m.life * 0.7})`;
-        ctx.stroke();
-        
-        m.x += m.vx;
-        m.y += m.vy;
-        m.life -= m.decay;
-        if(m.x > width + 100 || m.x < -100 || m.y > height + 100 || m.y < -100 || m.life <= 0) {
-          shootingStars.splice(i,1);
-          i--;
-        }
-      }
-    }
-    
-    function drawNebula() {
-      let grad = ctx.createLinearGradient(0, 0, width, height);
-      grad.addColorStop(0, '#03050b');
-      grad.addColorStop(0.6, '#10172b');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,width,height);
-      ctx.fillStyle = 'rgba(255,255,210,0.03)';
-      for(let i=0;i<120;i++) {
-        ctx.beginPath();
-        ctx.arc((i*131)%width, (i*253)%height, 1.5,0,Math.PI*2);
-        ctx.fill();
-      }
-    }
-    
-    function animate() {
-      if(!ctx) return;
-      drawNebula();
-      drawStars();
-      drawShootingStars();
-      createShootingStar();
-      requestAnimationFrame(animate);
-    }
-    
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-    });
-    
-    resizeCanvas();
-    animate();
-    
-    // ======================== MODAL FUNCTIONS =========================
+    // FUNGSI MODAL
     function openModal(url) {
       const modal = document.getElementById("codeModal");
       const iframe = document.getElementById("dartFrame");
@@ -635,7 +1098,7 @@ class Example {
       iframe.src = url;
       document.body.style.overflow = "hidden";
     }
-    
+
     function closeModal() {
       const modal = document.getElementById("codeModal");
       const iframe = document.getElementById("dartFrame");
@@ -643,7 +1106,8 @@ class Example {
       iframe.src = "";
       document.body.style.overflow = "auto";
     }
-    
+
+    // Tutup modal jika klik di luar area konten
     window.onclick = function(event) {
       const modal = document.getElementById("codeModal");
       if (event.target == modal) {
@@ -652,4 +1116,5 @@ class Example {
     }
   </script>
 </body>
+
 </html>
