@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Factory & Construct - Studio Bintang Jatuh | ADRIEL NOFRA MARCELINO</title>
+
+  <!-- Font Modern & Elegan -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f1e, #03050b);
+      font-family: 'Inter', sans-serif;
+      color: #eef5ff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* --- LANGIT BINTANG JATUH (Canvas sebagai background dinamis) --- */
+    #starCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* semua konten di atas canvas */
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header dengan efek kaca & tema kosmik */
+    header {
+      background: rgba(15, 25, 45, 0.75);
+      backdrop-filter: blur(12px);
+      padding: 28px 20px;
+      text-align: center;
+      border-bottom: 2px solid rgba(210, 180, 140, 0.5);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.5px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #F9F3C1, #FFE5B4, #B8E1FC);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 8px rgba(255,215,0,0.3);
+    }
+
+    header h1::before {
+      content: "✨ ";
+      font-size: 2rem;
+      background: none;
+      -webkit-background-clip: unset;
+      color: #ffecb3;
+    }
+
+    header h1::after {
+      content: " 🌠";
+      font-size: 2rem;
+      background: none;
+      -webkit-background-clip: unset;
+      color: #ffecb3;
+    }
+
+    header p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #cdddf7;
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+
+    .nim-badge {
+      background: rgba(0,0,0,0.5);
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      backdrop-filter: blur(4px);
+      margin-top: 8px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Kartu elegan dengan efek bercahaya */
+    .card {
+      background: rgba(18, 25, 45, 0.65);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      margin-bottom: 40px;
+      padding: 24px 28px;
+      border: 1px solid rgba(255, 220, 150, 0.25);
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,245,200,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 210, 90, 0.6);
+      box-shadow: 0 30px 45px -12px black;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      background: linear-gradient(120deg, #FFE6B0, #B2D8FF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      border-left: 5px solid #FFD966;
+      padding-left: 18px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e2ecff;
+      margin-bottom: 20px;
+    }
+
+    pre {
+      background: #0a0f1c;
+      padding: 18px;
+      border-radius: 20px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      color: #d6e6ff;
+      border: 1px solid #2a3855;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 15px;
+    }
+
+    .run-btn-container {
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .run-btn {
+      background: linear-gradient(95deg, #2a2f4b, #1a1f35);
+      border: none;
+      padding: 12px 32px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #FFEFC0;
+      border-radius: 60px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: 0.2s;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 200, 100, 0.5);
+    }
+
+    .run-btn:hover {
+      background: linear-gradient(95deg, #3e456b, #282e4a);
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      color: #fff3dd;
+      border-color: #ffcd7e;
+    }
+
+    /* Modal dengan gaya kosmik */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 85%;
+      background: #0b1120;
+      border-radius: 36px;
+      border: 2px solid #ffdd99;
+      overflow: hidden;
+      box-shadow: 0 0 70px rgba(255, 215, 0, 0.3);
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 44px;
+      font-weight: 300;
+      color: #ffdfaa;
+      cursor: pointer;
+      z-index: 1002;
+      transition: 0.2s;
+      background: rgba(0,0,0,0.4);
+      width: 48px;
+      text-align: center;
+      border-radius: 50%;
+      line-height: 1;
+    }
+
+    .close-modal:hover {
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    footer {
+      background: rgba(5, 8, 18, 0.8);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.8rem;
+      border-top: 1px solid #ffdd9944;
+      margin-top: 40px;
+      color: #b9ceff;
+    }
+
+    /* Animasi bintang kecil di text */
+    @keyframes twinkle {
+      0% { opacity: 0.6; text-shadow: 0 0 0px gold;}
+      100% { opacity: 1; text-shadow: 0 0 5px #ffdd77;}
+    }
+    
+    strong, .nim-badge {
+      color: #FFE3A4;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .card {
+        padding: 16px;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas Bintang Jatuh + Meteor -->
+  <canvas id="starCanvas"></canvas>
+
+  <div class="content-wrapper">
+    <header>
+      <h1>FACTORY & CONSTRUCT</h1>
+      <p>✦ Konsep Factory Constructor di Dart – Dikemas dengan Nuansa Bintang Jatuh ✦</p>
+      <div class="nim-badge">🌠 ADRIEL NOFRA MARCELINO | NIM: 251410017 | Kelas: SI2A 🌠</div>
+    </header>
+
+    <div class="container">
+      
+      <!-- 1. Factory Constructor (Generative) -->
+      <div class="card">
+        <h2>1. Factory Constructor (Dasar)</h2>
+        <p>Factory constructor tidak selalu membuat instance baru. Bisa mengembalikan dari cache, subclass, atau logika khusus. Seperti bintang jatuh yang bisa lahir dari debu kosmik yang sama.</p>
+        <pre><code>// ========== ADRIEL NOFRA MARCELINO ==========
+// NIM: 251410017
+class MyClass {
+  MyClass();
+  factory MyClass.create() => MyClass();
+}
+
+void main() {
+  var obj1 = MyClass();
+  var obj2 = MyClass.create();
+  print('Objek 1 & 2 dibuat dari pabrik bintang ✨');
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=a0a728ab1ffd0964f9b1315aa3d6cecf&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 2. Singleton Pattern -->
+      <div class="card">
+        <h2>2. Singleton Pattern</h2>
+        <p>Memastikan hanya satu instance sepanjang siklus, seperti rasi bintang yang hanya satu di langit malam.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class DatabaseConnection {
+  DatabaseConnection._internal();
+  static final DatabaseConnection _instance = DatabaseConnection._internal();
+  factory DatabaseConnection() => _instance;
+  void connect() => print('Connected to cosmic DB');
+}
+void main() {
+  var db1 = DatabaseConnection();
+  var db2 = DatabaseConnection();
+  print(identical(db1, db2)); // true
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=52ef599bbaf980430ea5e509cd1255da&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 3. Object Pool Pattern (Cache) -->
+      <div class="card">
+        <h2>3. Object Pool (Cache Connection)</h2>
+        <p>Mengelola koneksi reusable seperti meteor yang kembali ke sabuk asteroid untuk dipakai lagi.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class ConnectionPool {
+  static final _cache = {};
+  final String host; final int port;
+  ConnectionPool._(this.host, this.port);
+  factory ConnectionPool(String host, int port) {
+    String key = '$host:$port';
+    if (_cache.containsKey(key)) return _cache[key];
+    var conn = ConnectionPool._(host, port);
+    _cache[key] = conn;
+    return conn;
+  }
+}
+void main() {
+  var a = ConnectionPool('localhost', 5432);
+  var b = ConnectionPool('localhost', 5432);
+  print(identical(a, b)); // true
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=5ec35dac36d2ffd63ce2d5c5a9b0856a&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 4. Mengembalikan Subclass -->
+      <div class="card">
+        <h2>4. Factory Mengembalikan Subclass</h2>
+        <p>Factory bisa mengembalikan berbagai turunan sesuai parameter, seperti rasi bintang berbeda tergantung musim.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+abstract class Shape { void draw(); }
+class Circle implements Shape { void draw() => print('🌟 Lingkaran Bintang'); }
+class Square implements Shape { void draw() => print('⬛ Kotak Meteor'); }
+factory Shape(String type) {
+  if(type=='circle') return Circle();
+  return Square();
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=9cd373f901b69fcdf86b755d331df801&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 5. Factory untuk Configuration -->
+      <div class="card">
+        <h2>5. Factory Konfigurasi (Env)</h2>
+        <p>Membuat konfigurasi berdasarkan environment — seperti menyesuaikan kecerahan bintang dengan latar langit.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class AppConfig {
+  factory AppConfig.fromEnvironment(String env) {
+    if(env == 'dev') return AppConfig._dev();
+    return AppConfig._prod();
+  }
+  AppConfig._dev();
+  AppConfig._prod();
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=92286b04992c4b54d7cf5e836771247c&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 6. Named Constructors Factory -->
+      <div class="card">
+        <h2>6. Factory dengan Named Constructor</h2>
+        <p>Multiple factory dengan nama deskriptif — seperti memberi nama pada setiap bintang terang.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class User {
+  User._(this.name);
+  final String name;
+  factory User.guest() => User._('Guest Star');
+  factory User.normal(String name) => User._(name);
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=62cd9f53a3d0d741816caf3713acda56&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 7. Factory dengan Generic -->
+      <div class="card">
+        <h2>7. Factory Generic (Response)</h2>
+        <p>Pola factory yang type-safe untuk berbagai tipe data, seperti debu kosmik yang bisa membentuk berbagai objek langit.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+abstract class Response&lt;T&gt; {
+  factory Response.success(T data) = SuccessResponse&lt;T&gt;;
+  factory Response.error(String err) = ErrorResponse;
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=37b20f0bf3be6d32f912ba87b29fcb9a&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 8. Payment Method (Variasi) -->
+      <div class="card">
+        <h2>8. Factory Metode Pembayaran</h2>
+        <p>Memproduksi berbagai payment method — fleksibel seperti berbagai jalur cahaya bintang.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+abstract class Payment { void pay(double amount); }
+factory Payment(String type) {
+  if(type == 'card') return CardPayment();
+  return PayPalPayment();
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=aa253cae8924236f6f27a0b3f9521d67&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 9. Immutable + Cache Color -->
+      <div class="card">
+        <h2>9. Immutable Objects dengan Cache</h2>
+        <p>Objek warna yang tidak berubah dan di-cache, hemat memori layaknya konservasi energi di jagat raya.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class Color {
+  static final _cache = {};
+  final int r,g,b;
+  Color._(this.r,this.g,this.b);
+  factory Color.rgb(int r,int g,int b) => _cache.putIfAbsent('$r,$g,$b', () => Color._(r,g,b));
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=776a71f02cf1896d84d05a0d0657ef59&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 10. Challenge AnimalFactory -->
+      <div class="card">
+        <h2>10. Challenge: AnimalFactory 🐾</h2>
+        <p>Factory dengan cache untuk hewan (Cat, Dog, Bird) — seperti konstelasi hewan di angkasa.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+abstract class Animal {
+  factory Animal.create(String type, String name) = _AnimalFactory;
+  void sound();
+}
+class Cat implements Animal { void sound() => print('🐱 Meow~ bintang jatuh'); }</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=6e10c1f6f0c6e2ff0b0aad313d59f9ef&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 11. Bonus Latihan Shape-->
+      <div class="card">
+        <h2>11. Latihan ShapeFactory</h2>
+        <p>Bangun objek shape dengan mudah menggunakan factory — bentuk geometris antar bintang.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+factory Shape(String type) {
+  switch(type) {
+    case 'star': return StarShape();
+    default: return CircleShape();
+  }
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=30c75039d817338e057a3e770de3146d&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+      <!-- 12. Static Method vs Factory -->
+      <div class="card">
+        <h2>12. Factory vs Static Method</h2>
+        <p>Perbedaan mendasar: factory constructor bisa digunakan dalam pewarisan, static method lebih ke utility.</p>
+        <pre><code>// ADRIEL NOFRA MARCELINO - 251410017
+class Example {
+  factory Example.create() => Example._();
+  static Example.createStatic() => Example._();
+  Example._();
+}</code></pre>
+        <div class="run-btn-container">
+          <button class="run-btn" onclick="openModal('https://dartpad.dev/?id=36d9ba0d6bba2eda69883ec8b37c4e45&theme=dark')">🌠 JALANKAN KODE</button>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+      ✨ ADRIEL NOFRA MARCELINO (251410017) – Factory & Construct: Bintang Jatuh Edition ✨ <br/>
+      💫 Setiap factory constructor adalah jejak cahaya yang unik di langit pemrograman 💫
+    </footer>
+  </div>
+
+  <div id="codeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <iframe id="dartFrame" src=""></iframe>
+    </div>
+  </div>
+
+  <script>
+    // ======================== BINTANG JATUH + METEOR (Canvas Dinamis) =========================
+    const canvas = document.getElementById('starCanvas');
+    let ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    
+    let stars = [];
+    let shootingStars = [];
+    const STAR_COUNT = 280;
+    
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initStars();
+    }
+    
+    function initStars() {
+      stars = [];
+      for(let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          alpha: Math.random() * 0.6 + 0.3,
+          twinkleSpeed: 0.005 + Math.random() * 0.02,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    
+    function createShootingStar() {
+      if (Math.random() < 0.007) {
+        const startX = Math.random() * width;
+        const startY = Math.random() * height * 0.2;
+        const angle = -Math.PI / 3 + (Math.random() * Math.PI / 3);
+        const speed = 6 + Math.random() * 9;
+        shootingStars.push({
+          x: startX,
+          y: startY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          length: 12 + Math.random() * 15,
+          alpha: 0.9,
+          life: 1.0,
+          decay: 0.02 + Math.random() * 0.025
+        });
+      }
+    }
+    
+    function drawStars() {
+      for(let s of stars) {
+        let twinkle = Math.sin(Date.now() * s.twinkleSpeed + s.phase) * 0.25 + 0.75;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 200, ${s.alpha * twinkle})`;
+        ctx.fill();
+      }
+    }
+    
+    function drawShootingStars() {
+      for(let i = 0; i < shootingStars.length; i++) {
+        const m = shootingStars[i];
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x - m.vx * 2.5, m.y - m.vy * 2.5);
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = `rgba(255, 220, 150, ${m.alpha * m.life})`;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x - m.vx * 5, m.y - m.vy * 5);
+        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = `rgba(255, 180, 80, ${m.alpha * m.life * 0.7})`;
+        ctx.stroke();
+        
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life -= m.decay;
+        if(m.x > width + 100 || m.x < -100 || m.y > height + 100 || m.y < -100 || m.life <= 0) {
+          shootingStars.splice(i,1);
+          i--;
+        }
+      }
+    }
+    
+    function drawNebula() {
+      let grad = ctx.createLinearGradient(0, 0, width, height);
+      grad.addColorStop(0, '#03050b');
+      grad.addColorStop(0.6, '#10172b');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,width,height);
+      ctx.fillStyle = 'rgba(255,255,210,0.03)';
+      for(let i=0;i<120;i++) {
+        ctx.beginPath();
+        ctx.arc((i*131)%width, (i*253)%height, 1.5,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+    
+    function animate() {
+      if(!ctx) return;
+      drawNebula();
+      drawStars();
+      drawShootingStars();
+      createShootingStar();
+      requestAnimationFrame(animate);
+    }
+    
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+    
+    resizeCanvas();
+    animate();
+    
+    // ======================== MODAL FUNCTIONS =========================
+    function openModal(url) {
+      const modal = document.getElementById("codeModal");
+      const iframe = document.getElementById("dartFrame");
+      modal.style.display = "block";
+      iframe.src = url;
+      document.body.style.overflow = "hidden";
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById("codeModal");
+      const iframe = document.getElementById("dartFrame");
+      modal.style.display = "none";
+      iframe.src = "";
+      document.body.style.overflow = "auto";
+    }
+    
+    window.onclick = function(event) {
+      const modal = document.getElementById("codeModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
